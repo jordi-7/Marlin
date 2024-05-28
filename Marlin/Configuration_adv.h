@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#define CONFIG_EXAMPLES_DIR "Creality/Ender-3 Pro/BigTreeTech SKR Mini E3 2.0"
+
 /**
  * Configuration_adv.h
  *
@@ -931,7 +933,7 @@
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
 
-//#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
+#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define HOME_Z_FIRST                        // Home Z first. Requires a real endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
@@ -1584,12 +1586,12 @@
       //#define BOOT_MARLIN_LOGO_ANIMATED // Animated Marlin logo. Costs ~3260 (or ~940) bytes of flash.
     #endif
     #if ANY(HAS_MARLINUI_U8GLIB, TOUCH_UI_FTDI_EVE, HAS_MARLINUI_HD44780)
-      //#define SHOW_CUSTOM_BOOTSCREEN    // Show the bitmap in Marlin/_Bootscreen.h on startup.
+      #define SHOW_CUSTOM_BOOTSCREEN    // Show the bitmap in Marlin/_Bootscreen.h on startup.
     #endif
   #endif
 
   #if HAS_MARLINUI_U8GLIB
-    //#define CUSTOM_STATUS_SCREEN_IMAGE  // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
+    #define CUSTOM_STATUS_SCREEN_IMAGE  // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
   #endif
 
   //#define SOUND_MENU_ITEM   // Add a mute option to the LCD menu
@@ -1655,7 +1657,7 @@
 #endif
 
 // Add 'M73' to set print job progress, overrides Marlin's built-in estimate
-//#define SET_PROGRESS_MANUALLY
+#define SET_PROGRESS_MANUALLY
 #if ENABLED(SET_PROGRESS_MANUALLY)
   #define SET_PROGRESS_PERCENT            // Add 'P' parameter to set percentage done
   #define SET_REMAINING_TIME              // Add 'R' parameter to set remaining time
@@ -1705,7 +1707,7 @@
   //#define SD_DETECT_STATE HIGH
 
   //#define SD_IGNORE_AT_STARTUP            // Don't mount the SD card when starting up
-  //#define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
+  #define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
 
   //#define GCODE_REPEAT_MARKERS            // Enable G-code M808 to set repeat markers and do looping
 
@@ -2265,7 +2267,7 @@
  *
  * Warning: Does not respect endstops!
  */
-//#define BABYSTEPPING
+#define BABYSTEPPING
 #if ENABLED(BABYSTEPPING)
   //#define EP_BABYSTEPPING                 // M293/M294 babystepping with EMERGENCY_PARSER support
   //#define BABYSTEP_WITHOUT_HOMING
@@ -2276,9 +2278,9 @@
   #define BABYSTEP_MULTIPLICATOR_Z  1       // (steps or mm) Steps or millimeter distance for each Z babystep
   #define BABYSTEP_MULTIPLICATOR_XY 1       // (steps or mm) Steps or millimeter distance for each XY babystep
 
-  //#define DOUBLECLICK_FOR_Z_BABYSTEPPING  // Double-click on the Status Screen for Z Babystepping.
+  #define DOUBLECLICK_FOR_Z_BABYSTEPPING  // Double-click on the Status Screen for Z Babystepping.
   #if ENABLED(DOUBLECLICK_FOR_Z_BABYSTEPPING)
-    #define DOUBLECLICK_MAX_INTERVAL 1250   // Maximum interval between clicks, in milliseconds.
+    #define DOUBLECLICK_MAX_INTERVAL 1000   // Maximum interval between clicks, in milliseconds.
                                             // Note: Extra time may be added to mitigate controller latency.
     //#define MOVE_Z_WHEN_IDLE              // Jump to the move Z menu on double-click when printer is idle.
     #if ENABLED(MOVE_Z_WHEN_IDLE)
@@ -2427,7 +2429,7 @@
  * Use M871 to set temperature/offset values manually.
  * For more details see https://marlinfw.org/docs/features/probe_temp_compensation.html
  */
-#define PTC_PROBE    // Compensate based on probe temperature
+//#define PTC_PROBE    // Compensate based on probe temperature
 //#define PTC_BED      // Compensate based on bed temperature
 //#define PTC_HOTEND   // Compensate based on hotend temperature
 
@@ -2907,7 +2909,7 @@
                                                   //   For direct drive, the full length of the nozzle.
   //#define ADVANCED_PAUSE_CONTINUOUS_PURGE       // Purge continuously up to the purge length until interrupted.
   #define ADVANCED_PAUSE_PURGE_FEEDRATE        3  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
-  #define ADVANCED_PAUSE_PURGE_LENGTH         10  // (mm) Length to extrude after loading.
+  #define ADVANCED_PAUSE_PURGE_LENGTH         25  // (mm) Length to extrude after loading.
                                                   //   Set to 0 for manual extrusion.
                                                   //   Filament can be extruded repeatedly from the Filament Change menu
                                                   //   until extrusion is consistent, and to purge old filament.
@@ -2978,10 +2980,10 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(X2)
-    #define X2_CURRENT      800
-    #define X2_CURRENT_HOME X2_CURRENT
+    #define X2_CURRENT      X_CURRENT
+    #define X2_CURRENT_HOME X_CURRENT_HOME
     #define X2_MICROSTEPS   X_MICROSTEPS
-    #define X2_RSENSE       0.11
+    #define X2_RSENSE       X_RSENSE
     #define X2_CHAIN_POS     -1
     //#define X2_INTERPOLATE true
     //#define X2_HOLD_MULTIPLIER 0.5
@@ -2998,10 +3000,10 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Y2)
-    #define Y2_CURRENT      800
-    #define Y2_CURRENT_HOME Y2_CURRENT
+    #define Y2_CURRENT      Y_CURRENT
+    #define Y2_CURRENT_HOME Y_CURRENT_HOME
     #define Y2_MICROSTEPS   Y_MICROSTEPS
-    #define Y2_RSENSE       0.11
+    #define Y2_RSENSE       Y_RSENSE
     #define Y2_CHAIN_POS     -1
     //#define Y2_INTERPOLATE true
     //#define Y2_HOLD_MULTIPLIER 0.5
@@ -3018,30 +3020,30 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z2)
-    #define Z2_CURRENT      800
-    #define Z2_CURRENT_HOME Z2_CURRENT
+    #define Z2_CURRENT      Z_CURRENT
+    #define Z2_CURRENT_HOME Z_CURRENT_HOME
     #define Z2_MICROSTEPS   Z_MICROSTEPS
-    #define Z2_RSENSE       0.11
+    #define Z2_RSENSE       Z_RSENSE
     #define Z2_CHAIN_POS     -1
     //#define Z2_INTERPOLATE true
     //#define Z2_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z3)
-    #define Z3_CURRENT      800
-    #define Z3_CURRENT_HOME Z3_CURRENT
+    #define Z3_CURRENT      Z_CURRENT
+    #define Z3_CURRENT_HOME Z_CURRENT_HOME
     #define Z3_MICROSTEPS   Z_MICROSTEPS
-    #define Z3_RSENSE       0.11
+    #define Z3_RSENSE       Z_RSENSE
     #define Z3_CHAIN_POS     -1
     //#define Z3_INTERPOLATE true
     //#define Z3_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z4)
-    #define Z4_CURRENT      800
-    #define Z4_CURRENT_HOME Z4_CURRENT
+    #define Z4_CURRENT      Z_CURRENT
+    #define Z4_CURRENT_HOME Z_CURRENT_HOME
     #define Z4_MICROSTEPS   Z_MICROSTEPS
-    #define Z4_RSENSE       0.11
+    #define Z4_RSENSE       Z_RSENSE
     #define Z4_CHAIN_POS     -1
     //#define Z4_INTERPOLATE true
     //#define Z4_HOLD_MULTIPLIER 0.5
@@ -3117,63 +3119,63 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E1)
-    #define E1_CURRENT      800
+    #define E1_CURRENT      E0_CURRENT
     #define E1_MICROSTEPS   E0_MICROSTEPS
-    #define E1_RSENSE         0.11
+    #define E1_RSENSE       E0_RSENSE
     #define E1_CHAIN_POS     -1
     //#define E1_INTERPOLATE true
     //#define E1_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E2)
-    #define E2_CURRENT      800
+    #define E2_CURRENT      E0_CURRENT
     #define E2_MICROSTEPS   E0_MICROSTEPS
-    #define E2_RSENSE         0.11
+    #define E2_RSENSE       E0_RSENSE
     #define E2_CHAIN_POS     -1
     //#define E2_INTERPOLATE true
     //#define E2_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E3)
-    #define E3_CURRENT      800
+    #define E3_CURRENT      E0_CURRENT
     #define E3_MICROSTEPS   E0_MICROSTEPS
-    #define E3_RSENSE         0.11
+    #define E3_RSENSE       E0_RSENSE
     #define E3_CHAIN_POS     -1
     //#define E3_INTERPOLATE true
     //#define E3_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E4)
-    #define E4_CURRENT      800
+    #define E4_CURRENT      E0_CURRENT
     #define E4_MICROSTEPS   E0_MICROSTEPS
-    #define E4_RSENSE         0.11
+    #define E4_RSENSE       E0_RSENSE
     #define E4_CHAIN_POS     -1
     //#define E4_INTERPOLATE true
     //#define E4_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E5)
-    #define E5_CURRENT      800
+    #define E5_CURRENT      E0_CURRENT
     #define E5_MICROSTEPS   E0_MICROSTEPS
-    #define E5_RSENSE         0.11
+    #define E5_RSENSE       E0_RSENSE
     #define E5_CHAIN_POS     -1
     //#define E5_INTERPOLATE true
     //#define E5_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E6)
-    #define E6_CURRENT      800
+    #define E6_CURRENT      E0_CURRENT
     #define E6_MICROSTEPS   E0_MICROSTEPS
-    #define E6_RSENSE         0.11
+    #define E6_RSENSE       E0_RSENSE
     #define E6_CHAIN_POS     -1
     //#define E6_INTERPOLATE true
     //#define E6_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E7)
-    #define E7_CURRENT      800
+    #define E7_CURRENT      E0_CURRENT
     #define E7_MICROSTEPS   E0_MICROSTEPS
-    #define E7_RSENSE         0.11
+    #define E7_RSENSE       E0_RSENSE
     #define E7_CHAIN_POS     -1
     //#define E7_INTERPOLATE true
     //#define E7_HOLD_MULTIPLIER 0.5
@@ -3232,28 +3234,28 @@
    * Set *_SERIAL_TX_PIN and *_SERIAL_RX_PIN to match for all drivers
    * on the same serial port, either here or in your board's pins file.
    */
-  #define  X_SLAVE_ADDRESS 0
-  #define  Y_SLAVE_ADDRESS 2
-  #define  Z_SLAVE_ADDRESS 1
-  #define X2_SLAVE_ADDRESS 0
-  #define Y2_SLAVE_ADDRESS 0
-  #define Z2_SLAVE_ADDRESS 0
-  #define Z3_SLAVE_ADDRESS 0
-  #define Z4_SLAVE_ADDRESS 0
+  //#define  X_SLAVE_ADDRESS 0
+  //#define  Y_SLAVE_ADDRESS 0
+  //#define  Z_SLAVE_ADDRESS 0
+  //#define X2_SLAVE_ADDRESS 0
+  //#define Y2_SLAVE_ADDRESS 0
+  //#define Z2_SLAVE_ADDRESS 0
+  //#define Z3_SLAVE_ADDRESS 0
+  //#define Z4_SLAVE_ADDRESS 0
   //#define  I_SLAVE_ADDRESS 0
   //#define  J_SLAVE_ADDRESS 0
   //#define  K_SLAVE_ADDRESS 0
   //#define  U_SLAVE_ADDRESS 0
   //#define  V_SLAVE_ADDRESS 0
   //#define  W_SLAVE_ADDRESS 0
-  #define E0_SLAVE_ADDRESS 0
-  #define E1_SLAVE_ADDRESS 0
-  #define E2_SLAVE_ADDRESS 0
-  #define E3_SLAVE_ADDRESS 0
-  #define E4_SLAVE_ADDRESS 0
-  #define E5_SLAVE_ADDRESS 0
-  #define E6_SLAVE_ADDRESS 0
-  #define E7_SLAVE_ADDRESS 0
+  //#define E0_SLAVE_ADDRESS 0
+  //#define E1_SLAVE_ADDRESS 0
+  //#define E2_SLAVE_ADDRESS 0
+  //#define E3_SLAVE_ADDRESS 0
+  //#define E4_SLAVE_ADDRESS 0
+  //#define E5_SLAVE_ADDRESS 0
+  //#define E6_SLAVE_ADDRESS 0
+  //#define E7_SLAVE_ADDRESS 0
 
   // @section tmc/smart
 
@@ -3443,8 +3445,7 @@
   /**
    * Step on both rising and falling edge signals (as with a square wave).
    */
-  //#define EDGE_STEPPING
-  #define SQUARE_WAVE_STEPPING
+  #define EDGE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
